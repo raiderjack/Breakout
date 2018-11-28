@@ -82,22 +82,22 @@ class Ball {
       this.speedx = -this.speedx;
         }
     if (this.y >= 700)  {
-          this.isGameOver = true;
-
-        //  if (this.isGameOver == true){
-        function GameOver {
-            textSize(50);
-            fill(244,66,66);
-            text("GAME OVER!",400,300);
-            console.log(this.isGameOver);
-          }
-
-            this.isGameOver = false;
-            if (this.isGameOver == true) {
-              print(frameCount);
-            }
-        //  }
+      textSize(50);
+      fill(244,66,66);
+      text("GAME OVER!",400,300);
+      location.reload(true);
         }
+        // //  if (this.isGameOver == true){
+        // function GameOver {
+
+        //     console.log(this.isGameOver);
+        //   }
+        //
+        //     this.isGameOver = false;
+        //     if (this.isGameOver == true) {
+        //       print(frameCount);
+        //     }
+        //  }
 
     if (this.y <= 5)
         {
