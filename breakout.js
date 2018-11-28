@@ -12,46 +12,25 @@ let lost = false;
 
 function setup() {
   createCanvas(800,700);
-  // b = new Ball(800,400,20,20,random(2,5),random(2,5));
-  k = new Ball(ballX,ballY,20,20,5,5); //make a new ball from the Ball class and call it b.
-//  frameRate(fr);
+  k = new Ball(ballX,ballY,20,20,5,5);
 }
 
 
 function draw()
 {
 	background(220);
-    // b.drawBall();
-    //   b.moveBall();
-    //     b.bounceBall();
     k.drawBall();
     k.moveBall();
     k.bounceBall();
     paddle();
-
-
 
     for (let i = 0; i < balls.length; i++) {
     	 	balls[i].drawBall();
            	balls[i].moveBall();
             	  balls[i].bounceBall();
             }
-
-
-// function keyPressed() {
-//     let  b = new Ball(random(0,800),random(0,800),20,20,random(2,5),3);
-//     balls.push(b);
 }
-function paddle() {
-  stroke("black");
-  strokeWeight(10);
-  line(mouseX - 40, 650, mouseX + 40, 650);
 
-}
-function keyPressed() {
-  if (keyCode == 32)
-    location.reload(true);
-}
 //ball class from which to create new balls with similar properties.
 class Ball {
 
@@ -87,20 +66,8 @@ class Ball {
     if (this.y >= 700)  {
       textSize(50);
       fill(244,66,66);
-      text("GAME OVER!",400,300)
+      text("GAME OVER!",240,320)
        }
-        // //  if (this.isGameOver == true){
-        // function GameOver {
-
-        //     console.log(this.isGameOver);
-        //   }
-        //
-        //     this.isGameOver = false;
-        //     if (this.isGameOver == true) {
-        //       print(frameCount);
-        //     }
-        //  }
-
     if (this.y <= 5)
         {
       this.speedy = -this.speedy;
@@ -112,6 +79,17 @@ class Ball {
       console.log(this.speedy);
 
     }
+  }
+
+  function paddle() {
+    stroke("black");
+    strokeWeight(10);
+    line(mouseX - 40, 650, mouseX + 40, 650);
+
+  }
+  function keyPressed() {
+    if (keyCode == 32)
+      location.reload(true);
   }
 
 }
