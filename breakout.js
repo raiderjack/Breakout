@@ -4,12 +4,17 @@ let k;
 let balls = [];
 ballX=500;
 ballY=650;
+let fr=50
+
+let counter;
+let lost = false;
 
 
 function setup() {
   createCanvas(800,700);
   // b = new Ball(800,400,20,20,random(2,5),random(2,5));
-  k = new Ball(ballX,ballY,20,20,3,2.5); //make a new ball from the Ball class and call it b.
+  k = new Ball(ballX,ballY,20,20,5,5); //make a new ball from the Ball class and call it b.
+//  frameRate(fr);
 }
 
 
@@ -55,6 +60,7 @@ class Ball {
      this.width = width;
      this.speedx = speedx;
      this.speedy = speedy;
+     this.isGameOver = false;
 	  }
 
   drawBall() { // draw a ball on the screen at x,y
@@ -72,18 +78,27 @@ class Ball {
         {
         this.speedx = -this.speedx;
         }
-    if (this.x <= 5)
-        {
+    if (this.x <= 5)  {
       this.speedx = -this.speedx;
         }
-    if (this.y >= 700)
-        {
-      textSize(50);
-      fill(244,66,66);
-      text("GAME OVER!",400,300);
-      console.log("hi");
-      location.reload();
+    if (this.y >= 700)  {
+          this.isGameOver = true;
+
+        //  if (this.isGameOver == true){
+        function GameOver {
+            textSize(50);
+            fill(244,66,66);
+            text("GAME OVER!",400,300);
+            console.log(this.isGameOver);
+          }
+
+            this.isGameOver = false;
+            if (this.isGameOver == true) {
+              print(frameCount);
+            }
+        //  }
         }
+
     if (this.y <= 5)
         {
       this.speedy = -this.speedy;
