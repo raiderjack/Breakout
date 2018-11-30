@@ -4,6 +4,10 @@ let balls = [];
 ballX=500;
 ballY=650;
 
+brickX= 20;
+brickY = 7;
+
+
 function setup() {
   background("black");
   createCanvas(800,700);
@@ -15,33 +19,37 @@ function setup() {
 }
 
 
-function draw()
-{
+function draw(){
 	background(0);
     k.drawBall();
     k.moveBall();
     k.bounceBall();
     paddle();
 
-    for (var row = 0; row <= 5; row++) {
-        push(); //save state of canvas
-        console.log("row " + row);
-        for (var col = 0; col <= 9; col++) {
-          brick();
-          translate(75, 0); //translate in X (left-right)
-          console.log("drawing shape in row: " + row + " and column: " + col);
-        }
-        pop();
-        translate(0, 50);
-      }
+    // for (var row = 0; row <= 5; row++) {
+    //     push(); //save state of canvas
+    //     console.log("row " + row);
+    //     for (var col = 0; col <= 9; col++) {
+    //       brick(20,7);
+    //       translate(75, 0); //translate in X (left-right)
+    //       console.log("drawing shape in row: " + row + " and column: " + col);
+    //     }
+    //     pop();
+    //     translate(0, 50);
+    //   }
 
 
-    for (let i = 0; i < balls.length; i++) {
-    	 	balls[i].drawBall();
-           	balls[i].moveBall();
-            	  balls[i].bounceBall();
-            }
+for (let i=0;i<=4;i++){
+
+    for (let i = 0; i <750 ; i = i + 75){
+       brick(brickX + i ,brickY);
+    }
+    translate(0,50);
+  }
 }
+
+
+
 function paddle() {
   stroke("white");
   strokeWeight(10);
@@ -53,13 +61,35 @@ function keyPressed() {
     location.reload(true);
 }
 
-function brick() {
+function brick(x,y) {
   fill("pink");
   strokeWeight(1);
-  rect(20,5,70,30);
+  rect(x,y,70,30);
 
 
 }
+
+
+class Brick {
+
+	constructor(x,y) //every ball needs an x value and a y value
+    {
+		 this.x = x;
+  	 this.y = y;
+	  }
+    drawBrick() { // draw a ball on the screen at x,y
+      fill("pink");
+      strokeWeight(1);
+      rect(brickX,brickY,70,30);
+  	  }
+
+      breakBrick(){
+        if(k.x>=this.x && k.x<= this.x+70){
+            fill("black");
+          rect(brickX,brickY,70,30);
+        }
+      }
+  }
 
 class Ball {
 
