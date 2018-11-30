@@ -6,7 +6,7 @@ ballY=650;
 
 function setup() {
   background("black");
-  createCanvas(900,700);
+  createCanvas(800,700);
   k = new Ball(ballX,ballY,20,20,5,5); //make a new ball from the Ball class and call it b.
 
 
