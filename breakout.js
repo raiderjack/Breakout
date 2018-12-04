@@ -7,11 +7,14 @@ ballY=650;
 brickX= 20;
 brickY = 7;
 
+bricks = [];
+
 
 function setup() {
   background("black");
   createCanvas(800,700);
   k = new Ball(ballX,ballY,20,20,5,5); //make a new ball from the Ball class and call it b.
+
 
 
 
@@ -26,26 +29,22 @@ function draw(){
     k.bounceBall();
     paddle();
 
-    // for (var row = 0; row <= 5; row++) {
-    //     push(); //save state of canvas
-    //     console.log("row " + row);
-    //     for (var col = 0; col <= 9; col++) {
-    //       brick(20,7);
-    //       translate(75, 0); //translate in X (left-right)
-    //       console.log("drawing shape in row: " + row + " and column: " + col);
-    //     }
-    //     pop();
-    //     translate(0, 50);
-    //   }
-
 
 for (let i=0;i<=4;i++){
 
     for (let i = 0; i <750 ; i = i + 75){
-       brick(brickX + i ,brickY);
+      let b = new Brick(brickX + i ,brickY);
+      bricks.push(b);
+      print(bricks);
+
     }
     translate(0,50);
   }
+
+for (let i=0;i<bricks.length; i ++ ){
+  bricks[i].drawBrick(); 
+}
+
 }
 
 
