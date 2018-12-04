@@ -1,13 +1,14 @@
 //create a variable to hold one ball
 let k;
 let balls = [];
-ballX=mouseX;
-ballY=mouseY;
+// ballX=mouseX;
+// ballY=mouseY;
+let paddleStart = 400;
 
 function setup() {
   background("black");
   createCanvas(800,700);
-  k = new Ball(ballX,ballY,20,20,5,5,false); //make a new ball from the Ball class and call it b.
+  k = new Ball(paddleStart,640,20,20,5,5,false); //make a new ball from the Ball class and call it b.
 
 }
 
@@ -28,6 +29,7 @@ function draw() {
     k.bounceBall();
 
     paddle();
+    paddleStart=mouseX;
 
 
     for (var row = 0; row <= 5; row++) {
@@ -53,7 +55,7 @@ function draw() {
 function paddle() {
   stroke("white");
   strokeWeight(10);
-  line(mouseX - 40, 650, mouseX + 40, 650);
+  line(paddleStart - 40, 650, paddleStart + 40, 650);
 
 }
 function keyPressed() {
@@ -64,7 +66,7 @@ function keyPressed() {
 }
 
 function brick() {
-  fill("pink");
+  fill("red");
   strokeWeight(1);
   rect(20,5,70,30);
 
@@ -86,8 +88,8 @@ class Ball {
 
   startBall() {
     if(k.inPlay == true){
-    this.x = mouseX
-    this.y = qmouseY
+    this.x = 500
+    this.y = 640
   }
 }
 
