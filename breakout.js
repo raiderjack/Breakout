@@ -14,7 +14,7 @@ function setup() {
   background("black");
   createCanvas(800,700);
   frameRate(180);
-  k = new Ball(ballX,ballY,20,20,5,5); //make a new ball from the Ball class and call it b.
+  k = new Ball(ballX,ballY,20,20,7,7); //make a new ball from the Ball class and call it b.
 
 for (let h=0; h < 250; h += 50){
   for (let i = 0; i <750 ; i = i + 75){
@@ -70,21 +70,22 @@ function brick(x,y) {
 
 class Brick {
 
-	constructor(x,y, broke) //every ball needs an x value and a y value
+	constructor(x,y, broke, broke1) //every ball needs an x value and a y value
     {
 		 this.x = x;
   	 this.y = y;
      this.broke = broke;
+
 	  }
 
     drawBrick() { // draw a ball on the screen at x,y
 
-
       if (this.broke == true){
         fill("black");
+        this.x = 2000;
+        this.y = 2000;
 
-      }
-      else if (this.broke == false){
+      }  else if (this.broke == false){
         fill("pink");
 
       }
@@ -99,14 +100,11 @@ class Brick {
 
       breakBrick(){
         if(k.x>=this.x && k.x<= this.x+70 && k.y<=this.y+30){
-
-
             this.broke = true;
             print(this.broke);
             fill("black");
             rect(this.x,this.y,70,30);
             noStroke();
-
         }
       }
   }
