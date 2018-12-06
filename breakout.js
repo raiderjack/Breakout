@@ -5,6 +5,15 @@ let balls = [];
 // ballY=mouseY;
 let paddleStart = 400;
 
+// var timerVar = setInterval(countTimer,1000);
+// var total seconds = 0;
+// function countTimer() {
+//   ++total seconds
+//   var hour = Math.floor(totalSeconds/3600);
+//   var minute = Math.floor(totalSeconds = (hour*3600/60);
+//   var seconds = totalSeconds - (hour*3600 + minute*60);
+
+
 function setup() {
   background("black");
   createCanvas(800,700);
@@ -17,9 +26,9 @@ function draw() {
 
 	background(0);
 
-  if(this.inPlay == false){
+  if(this.inPlay == true){
     k.startBall();
-    k.inPlay = true;
+    k.inPlay = false;
     print(k.inPlay);
   } else {
     k.moveBall();
@@ -29,7 +38,7 @@ function draw() {
     k.bounceBall();
 
     paddle();
-    paddleStart=mouseX;
+    paddleStart = mouseX;
 
 
     for (var row = 0; row <= 5; row++) {
@@ -55,7 +64,16 @@ function draw() {
 function paddle() {
   stroke("white");
   strokeWeight(10);
-  line(paddleStart - 40, 650, paddleStart + 40, 650);
+ line(paddleStart - 40, 650, paddleStart + 40, 650);
+if (paddleStart>=40 && paddleStart<=760) {
+
+
+} else{
+
+
+}
+
+
 
 }
 function keyPressed() {
@@ -100,8 +118,9 @@ class Ball {
 		ellipse(this.x,this.y,this.height,this.width);
 	  }
 	moveBall() { //update the location of the ball, so it moves across the screen
+
 		this.x = this.x-this.speedx;
-		this.y = this.y-this.speedy;
+		this.y = this.y-this.speedx;
     }
   bounceBall() {
     if (this.x >= 800)
@@ -114,7 +133,7 @@ class Ball {
     if (this.y >= 700)  {
       textSize(50);
       fill(244,66,66);
-      text("GAME OVER!",240,320)
+      text("GAME OVER!",240,340)
        }
 
     if (this.y <= 5)
