@@ -7,24 +7,27 @@ ballY=650;
 brickX= 20;
 brickY = 7;
 
+let paddleX = 400;
+
+
 bricks = [];
 
 
 function setup() {
   background("black");
   createCanvas(800,700);
+  paddleX = 400;
   frameRate(180);
   k = new Ball(ballX,ballY,20,20,7,7); //make a new ball from the Ball class and call it b.
 
 for (let h=0; h < 250; h += 50){
   for (let i = 0; i <750 ; i = i + 75){
-    let b = new Brick(brickX + i ,brickY + h, false);
+    let b = new Brick(brickX + i ,brickY , false);
+  }
     bricks.push(b);
 
   }
-}
-
-
+// }
 
 }
 
@@ -35,8 +38,13 @@ function draw(){
     k.moveBall();
     k.bounceBall();
     k.bounceBricks();
-    paddle();
 
+    paddle();
+    if (frameCount>= 70){
+        paddleX = mouseX;
+    }
+
+    print(paddleX);
 
 
 for (let i=0;i<bricks.length; i ++ ){
@@ -47,11 +55,10 @@ for (let i=0;i<bricks.length; i ++ ){
 }
 
 
-
 function paddle() {
   stroke("white");
   strokeWeight(10);
-  line(mouseX - 40, 650, mouseX + 40, 650);
+  line(paddleX - 40, 650, paddleX + 40, 650);
 
 }
 function keyPressed() {
@@ -75,6 +82,7 @@ class Brick {
 		 this.x = x;
   	 this.y = y;
      this.broke = broke;
+     this.broke1 = broke1;
 
 	  }
 
@@ -86,7 +94,7 @@ class Brick {
         this.y = 2000;
 
       }  else if (this.broke == false){
-        fill("pink");
+        fill("red");
 
       }
       else {
