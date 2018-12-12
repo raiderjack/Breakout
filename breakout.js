@@ -22,7 +22,7 @@ function setup() {
   k = new Ball(ballX,ballY,20,20,7,7); //make a new ball from the Ball class and call it b.
 
 
-  for (let i = 0; i <9 ; i = i + 1){
+  for (let i = 9 ; i>0 ; i = i - 1){
     brickX = 400;
     for (let j =0; j<i; j++){
       let b = new Brick(brickX, brickY , false);
@@ -32,9 +32,21 @@ function setup() {
     brickY+=50;
 
   }
+  brickX= 400;
+  brickY = 20;
+  for (let i = 9 ; i>0 ; i = i - 1){
+    brickX = 400;
+    for (let j =0; j<i; j++){
+      let b = new Brick(brickX, brickY , false);
+      bricks.push(b);
+      brickX -= 75;
+    }
+    brickY+=50;
+
+  }
+
 
 }
-
 
 function draw(){
 	background(0);
@@ -59,16 +71,24 @@ for (let i=0;i<bricks.length; i ++ ){
 }
 
 
+//PADX=300
+// PADX = PADX+paddleX;
 function paddle() {
   stroke("white");
   strokeWeight(10);
   line(paddleX - 40, 650, paddleX + 40, 650);
 
 }
-function keyPressed() {
-  if (keyCode == 32)
-    location.reload(true);
-}
+// function keyPressed() {
+//   if (keyIsDown(LEFT_ARROW)) {
+//     paddleX -= 5
+//   }
+//   if (keyIsDown(RIGHT_ARROW)) {
+//     paddleX += 5
+// 
+//   }
+// 
+// }
 
 function brick(x,y) {
   fill("pink");
@@ -77,6 +97,11 @@ function brick(x,y) {
 
 
 }
+function keyPressed() {
+  if (keyCode == 32)
+    location.reload(true);
+}
+
 
 
 class Brick {
@@ -101,10 +126,8 @@ class Brick {
         fill("red");
 
       }
-      else {
-        fill("turquoise");
 
-      }
+
       noStroke();
       rect(this.x,this.y,70,30);
 }
