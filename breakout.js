@@ -1,150 +1,190 @@
 //create a variable to hold one ball
 let k;
 let balls = [];
-// ballX=mouseX;
-// ballY=mouseY;
-let paddleStart = 400;
+ballX=500;
+ballY=650;
 
-// var timerVar = setInterval(countTimer,1000);
-// var total seconds = 0;
-// function countTimer() {
-//   ++total seconds
-//   var hour = Math.floor(totalSeconds/3600);
-//   var minute = Math.floor(totalSeconds = (hour*3600/60);
-//   var seconds = totalSeconds - (hour*3600 + minute*60);
+brickX= 400;
+brickY = 20;
+
+let paddleX = 400;
+
+
+bricks = [];
 
 
 function setup() {
   background("black");
   createCanvas(800,700);
-  k = new Ball(paddleStart,640,20,20,5,5,false); //make a new ball from the Ball class and call it b.
+  rectMode(CENTER);
+  paddleX = 400;
+  frameRate(180);
+  k = new Ball(ballX,ballY,20,20,7,7); //make a new ball from the Ball class and call it b.
 
-}
 
+  for (let i = 0; i <9 ; i = i + 1){
+    brickX = 400;
+    for (let j =0; j<i; j++){
+      let b = new Brick(brickX, brickY , false);
+      bricks.push(b);
+      brickX += 75;
+    }
+    brickY+=50;
 
-function draw() {
-
-	background(0);
-
-  if(this.inPlay == true){
-    k.startBall();
-    k.inPlay = false;
-    print(k.inPlay);
-  } else {
-    k.moveBall();
   }
 
+}
+
+
+function draw(){
+	background(0);
     k.drawBall();
+    k.moveBall();
     k.bounceBall();
+    k.bounceBricks();
 
     paddle();
-    paddleStart = mouseX;
+    if (frameCount>= 70){
+        paddleX = mouseX;
+    }
+
+    print(paddleX);
 
 
-    for (var row = 0; row <= 5; row++) {
-        push(); //save state of canvas
-        // console.log("row " + row);
-        for (var col = 0; col <= 9; col++) {
-          brick();
-          translate(75, 0); //translate in X (left-right)
-          // console.log("drawing shape in row: " + row + " and column: " + col);
-        }
-        pop();
-        translate(0, 50);
-      }
-    for (let i = 0; i < balls.length; i++) {
-    	balls[i].drawBall();
-      balls[i].moveBall();
-      balls[i].bounceBall();
-      balls[i].startBall();
-      }
+for (let i=0;i<bricks.length; i ++ ){
+  bricks[i].drawBrick();
+  bricks[i].breakBrick();
+}
 
 }
+
 
 function paddle() {
-  stroke("white");
-  strokeWeight(10);
- line(paddleStart - 40, 650, paddleStart + 40, 650);
-if (paddleStart>=40 && paddleStart<=760) {
-
-
-} else{
-
-
-}
-
-
+  stroke("white");
+  strokeWeight(10);
+  line(paddleX - 40, 650, paddleX + 40, 650);
 
 }
 function keyPressed() {
   if (keyCode == 32)
     location.reload(true);
-    this.inPlay = true;
-
 }
 
-function brick() {
-  fill("red");
+function brick(x,y) {
+  fill("pink");
   strokeWeight(1);
-  rect(20,5,70,30);
+  rect(x,y,70,30);
+
 
 }
+
+
+class Brick {
+
+	constructor(x,y, broke, broke1) //every ball needs an x value and a y value
+    {
+		 this.x = x;
+  	 this.y = y;
+     this.broke = broke;
+     this.broke1 = broke1;
+
+	  }
+
+    drawBrick() { // draw a ball on the screen at x,y
+
+      if (this.broke == true){
+        fill("black");
+        this.x = 2000;
+        this.y = 2000;
+
+      }  else if (this.broke == false){
+        fill("red");
+
+      }
+      else {
+        fill("turquoise");
+
+      }
+      noStroke();
+      rect(this.x,this.y,70,30);
+}
+
+
+      breakBrick(){
+        if(k.x>=this.x && k.x<= this.x+70 && k.y<=this.y+30){
+            this.broke = true;
+            print(this.broke);
+            fill("black");
+            rect(this.x,this.y,70,30);
+            noStroke();
+        }
+      }
+  }
 
 class Ball {
 
-	constructor(x,y,height,width,speedx,speedy,inPlay) { //every ball needs an x value and a y value
-
+	constructor(x,y,height,width,speedx,speedy) //every ball needs an x value and a y value
+    {
 		 this.x = x;
   	 this.y = y;
      this.height = height;
      this.width = width;
      this.speedx = speedx;
      this.speedy = speedy;
-     this.inPlay = false;
+
 	  }
-
-
-  startBall() {
-    if(k.inPlay == true){
-    this.x = 500
-    this.y = 640
-  }
-}
 
   drawBall() { // draw a ball on the screen at x,y
     stroke(0);
     strokeWeight(1);
     fill("white");
 		ellipse(this.x,this.y,this.height,this.width);
+    // balls.style.zIndex="1"
 	  }
 	moveBall() { //update the location of the ball, so it moves across the screen
-
 		this.x = this.x-this.speedx;
-		this.y = this.y-this.speedx;
+		this.y = this.y-this.speedy;
     }
   bounceBall() {
-    if (this.x >= 800)
-        {
-        this.speedx = -this.speedx;
+    // for (let i = 0; i < bricks.length; i++){
+    //     if (this.x>= bricks[i].x && this.x <= bricks[i].x+70 && this.y <= bricks[i].y ){
+    //       this.speedy = -this.speedy;
+    //     }
+
+      if (this.x >= 800)  {
+          this.speedx = -this.speedx;
         }
-    if (this.x <= 5)  {
-      this.speedx = -this.speedx;
+        if (this.x <= 5)  {
+          this.speedx = -this.speedx;
         }
-    if (this.y >= 700)  {
-      textSize(50);
-      fill(244,66,66);
-      text("GAME OVER!",240,340)
+         if (this.y >= 700)  {
+          textSize(50);
+          fill(244,66,66);
+          text("GAME OVER!",240,320)
        }
 
-    if (this.y <= 5)
-        {
-      this.speedy = -this.speedy;
+       if (this.y <= 5){
+         this.speedy = -this.speedy;
         }
-    if (this.x >= mouseX - 50 && this.x <= mouseX + 50 && this.y >= 650 - 12 && this.y <= 650 + 12) {
-      this.speedy = -this.speedy;
+
+       if (this.x >= mouseX - 50 && this.x <= mouseX + 50 && this.y >= 650 - 12 && this.y <= 650 + 12) {
+           this.speedy = -this.speedy;
       // this.speedx = -this.speedx;
-      console.log(this.speedx);
-      console.log(this.speedy);
+        console.log(this.speedx);
+        console.log(this.speedy);
+        }
+
+  }
+  bounceBricks(){
+    for (let i = 0; i < bricks.length; i++){
+      if (this.x>= bricks[i].x && this.x <= bricks[i].x+140 && this.y <= bricks[i].y+30 && bricks[i].broke == false ){
+        this.speedy = -this.speedy;
+        frameRate=frameRate*1.5;
+
       }
-   }
+
+    }
+
+  }
+
 }
