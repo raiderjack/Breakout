@@ -8,6 +8,7 @@ brickX= 400;
 brickY = 20;
 
 let paddleX = 400;
+let paddleMovement = 0;
 
 
 bricks = [];
@@ -56,11 +57,9 @@ function draw(){
     k.bounceBricks();
 
     paddle();
-    if (frameCount>= 70){
-        paddleX = mouseX;
+    if (frameCount>= 0){
+        // paddleX = mouseX;
     }
-
-    print(paddleX);
 
 
 for (let i=0;i<bricks.length; i ++ ){
@@ -69,7 +68,18 @@ for (let i=0;i<bricks.length; i ++ ){
 }
 
 }
+function keyPressed() {
+  if (keyCode == 32)
+    location.reload(true);
+  if (keyIsDown(LEFT_ARROW)) {
+    paddleMovement -= 5;
+    }
+  if (keyIsDown(LEFT_ARROW)) {
+    paddleMovement += 5;
 
+    }
+
+}
 
 //PADX=300
 // PADX = PADX+paddleX;
@@ -77,18 +87,13 @@ function paddle() {
   stroke("white");
   strokeWeight(10);
   line(paddleX - 40, 650, paddleX + 40, 650);
+  print(paddleX);
+  paddleX += paddleMovement;
 
 }
-// function keyPressed() {
-//   if (keyIsDown(LEFT_ARROW)) {
-//     paddleX -= 5
-//   }
-//   if (keyIsDown(RIGHT_ARROW)) {
-//     paddleX += 5
-// 
-//   }
-// 
-// }
+function keyPressed() {
+
+}
 
 function brick(x,y) {
   fill("pink");
@@ -97,11 +102,6 @@ function brick(x,y) {
 
 
 }
-function keyPressed() {
-  if (keyCode == 32)
-    location.reload(true);
-}
-
 
 
 class Brick {
@@ -190,7 +190,7 @@ class Ball {
          this.speedy = -this.speedy;
         }
 
-       if (this.x >= mouseX - 50 && this.x <= mouseX + 50 && this.y >= 650 - 12 && this.y <= 650 + 12) {
+       if (this.x >= paddleX - 50 && this.x <= paddleX + 50 && this.y >= 650 - 12 && this.y <= 650 + 12) {
            this.speedy = -this.speedy;
       // this.speedx = -this.speedx;
         console.log(this.speedx);
