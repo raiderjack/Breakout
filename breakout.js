@@ -198,12 +198,10 @@ class Ball {
         }
 
   }
-  bounceBricks(){
-    for (let i = 0; i < bricks.length; i++){
-      if (this.x>= bricks[i].x && this.x <= bricks[i].x+140 && this.y <= bricks[i].y+30 && bricks[i].broke == false ){
+bounceBricks() {
+    for (let i = 0; i < bricks.length; i++) {
+      if (this.x >= bricks[i].x && this.x <= bricks[i].x + 70 && this.y >= bricks[i].y && this.y <= bricks[i].y + 30 && bricks[i].broke == false) {
         this.speedy = -this.speedy;
-        frameRate=frameRate*1.5;
-
       }
 
     }
