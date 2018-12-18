@@ -4,10 +4,11 @@ let balls = [];
 ballX=500;
 ballY=650;
 
-brickX= 20;
-brickY = 7;
+brickX= 400;
+brickY = 20;
 
 let paddleX = 400;
+let paddleMovement = 0;
 
 
 bricks = [];
@@ -16,21 +17,37 @@ bricks = [];
 function setup() {
   background("black");
   createCanvas(800,700);
+  rectMode(CENTER);
   paddleX = 400;
   frameRate(180);
   k = new Ball(ballX,ballY,20,20,7,7); //make a new ball from the Ball class and call it b.
 
-for (let h=0; h < 250; h += 50){
-  for (let i = 0; i <750 ; i = i + 75){
-    let b = new Brick(brickX + i ,brickY , false);
-  }
-    bricks.push(b);
+
+  for (let i = 9 ; i>0 ; i = i - 1){
+    brickX = 400;
+    for (let j =0; j<i; j++){
+      let b = new Brick(brickX, brickY , false);
+      bricks.push(b);
+      brickX += 75;
+    }
+    brickY+=50;
 
   }
-// }
+  brickX= 400;
+  brickY = 20;
+  for (let i = 9 ; i>0 ; i = i - 1){
+    brickX = 400;
+    for (let j =0; j<i; j++){
+      let b = new Brick(brickX, brickY , false);
+      bricks.push(b);
+      brickX -= 75;
+    }
+    brickY+=50;
+
+  }
+
 
 }
-
 
 function draw(){
 	background(0);
@@ -40,11 +57,15 @@ function draw(){
     k.bounceBricks();
 
     paddle();
-    if (frameCount>= 70){
-        paddleX = mouseX;
+    if (frameCount>= 0){
+        // paddleX = mouseX;
     }
 
-    print(paddleX);
+    if (keyCode == 39) {
+      paddleX += 5;
+    } else if (keyCode == 37) {
+      paddleX -= 5;
+    }
 
 
 for (let i=0;i<bricks.length; i ++ ){
@@ -53,17 +74,26 @@ for (let i=0;i<bricks.length; i ++ ){
 }
 
 }
-
-
-function paddle() {
-  stroke("white");
-  strokeWeight(10);
-  line(paddleX - 40, 650, paddleX + 40, 650);
-
-}
 function keyPressed() {
-  if (keyCode == 32)
+  if (keyCode == 32) {
     location.reload(true);
+  }
+  // else if (keyCode == 39) {
+  //   paddleX += 5;
+  // }
+  // else if (keyCode == 37) {
+  //   paddleX -= 5;
+  //   }
+}
+//PADX=300
+// PADX = PADX+paddleX;
+function paddle() {
+  stroke("white");
+  strokeWeight(10);
+  line(paddleX - 40, 650, paddleX + 40, 650);
+  print(paddleX);
+  // paddleX += paddleMovement;
+
 }
 
 function brick(x,y) {
@@ -97,10 +127,8 @@ class Brick {
         fill("red");
 
       }
-      else {
-        fill("turquoise");
 
-      }
+
       noStroke();
       rect(this.x,this.y,70,30);
 }
@@ -163,20 +191,18 @@ class Ball {
          this.speedy = -this.speedy;
         }
 
-       if (this.x >= mouseX - 50 && this.x <= mouseX + 50 && this.y >= 650 - 12 && this.y <= 650 + 12) {
-           this.speedy = -this.speedy;
+       if (this.x >= paddleX - 50 && this.x <= paddleX + 50 && this.y >= 650 - 12 && this.y <= 650 + 12) {
+           this.speedy = -this.speedy;
       // this.speedx = -this.speedx;
         console.log(this.speedx);
         console.log(this.speedy);
         }
 
   }
-  bounceBricks(){
-    for (let i = 0; i < bricks.length; i++){
-      if (this.x>= bricks[i].x && this.x <= bricks[i].x+140 && this.y <= bricks[i].y+30 && bricks[i].broke == false ){
+bounceBricks() {
+    for (let i = 0; i < bricks.length; i++) {
+      if (this.x >= bricks[i].x && this.x <= bricks[i].x + 70 && this.y >= bricks[i].y && this.y <= bricks[i].y + 30 && bricks[i].broke == false) {
         this.speedy = -this.speedy;
-        frameRate=frameRate*1.5;
-
       }
 
     }
