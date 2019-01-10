@@ -1,16 +1,16 @@
-//create a variable to hold one ball
 let k;
 let balls = [];
-ballX = 500;
-ballY = 650;
+let ballX = 500;
+let ballY = 650;
 
-brickX = 20;
-brickY = 7;
+let brickX = 20;
+let brickY = 7;
 
-bricks = [];
+let bricks = [];
+let counter = 0;
+let canvasX = 1450;
+let canvasY = 850;
 
-canvasX = 1450;
-canvasY = 850;
 
 
 function setup() {
@@ -30,6 +30,8 @@ function setup() {
 
 
 
+
+
 }
 
 
@@ -40,6 +42,11 @@ function draw() {
   k.bounceBall();
   k.bounceBricks();
   paddle();
+
+  // arrowMovement();
+
+
+
 
 
 
@@ -56,14 +63,17 @@ function draw() {
 function paddle() {
   stroke("white");
   strokeWeight(10);
-  line(mouseX - 40, 720, mouseX + 40, 720);
+  line(mouseX - 50, 720, mouseX + 50, 720);
 
 }
 
 function keyPressed() {
-  if (keyCode == 32)
+  if (keyCode == 32) {
     location.reload(true);
+  }
+
 }
+
 
 function brick(x, y) {
   fill("pink");
@@ -87,8 +97,10 @@ class Brick {
   drawBrick() { // draw a ball on the screen at x,y
 
     if (this.broke == true) {
-      this.x = this.x + 2000;
-      this.y = this.y + 2000;
+      this.x = this.x + 4000;
+      this.y = this.y + 4000;
+      counter += 1;
+      print('counter = ' + counter.toString());
 
 
     } else if (this.broke == false) {
@@ -111,6 +123,8 @@ class Brick {
     }
   }
 }
+
+
 
 class Ball {
 
@@ -137,21 +151,27 @@ class Ball {
     this.y = this.y - this.speedy;
   }
   bounceBall() {
-    // for (let i = 0; i < bricks.length; i++){
-    //     if (this.x>= bricks[i].x && this.x <= bricks[i].x+70 && this.y <= bricks[i].y ){
-    //       this.speedy = -this.speedy;
-    //     }
+    for (let i = 0; i < bricks.length; i++) {
+      if (this.x >= bricks[i].x && this.x <= bricks[i].x + 70 && this.y <= bricks[i].y) {
+        this.speedy = -this.speedy;
+      }
 
-    if (this.x >= canvasX) {
-      this.speedx = -this.speedx;
-    }
-    if (this.x <= 35) {
-      this.speedx = -this.speedx;
-    }
-    if (this.y >= 730) {
-      textSize(50);
-      fill(244, 66, 66);
-      text("GAME OVER!", 600, 390)
+      if (this.x >= canvasX) {
+        this.speedx = -this.speedx;
+      }
+      if (this.x <= 35) {
+        this.speedx = -this.speedx;
+      }
+      if (this.y >= 730) {
+        textSize(50);
+        fill(244, 66, 66);
+        text("GAME OVER!", 600, 390)
+      }
+      if (counter == 95) {
+        textSize(50);
+        fill(10, 211, 30);
+        text("YOU WIN!", 240, 320);
+      }
     }
 
     if (this.y <= 5) {
@@ -161,8 +181,8 @@ class Ball {
 
     if (this.x >= mouseX - 50 && this.x <= mouseX + 50 && this.y >= 720 - 12 && this.y <= 720 + 12) {
       this.speedy = -this.speedy;
-      this.speedy = this.speedy * random(1, 1.03);
-      this.speedx = this.speedx * random(1, 1.03);
+      this.speedy = this.speedy * random(1, 1.02);
+      this.speedx = this.speedx * random(1, 1.02);
       console.log("speedup");
 
 
@@ -176,7 +196,6 @@ class Ball {
     for (let i = 0; i < bricks.length; i++) {
       if (this.x >= bricks[i].x && this.x <= bricks[i].x + 70 && this.y <= bricks[i].y + 30 && bricks[i].broke == false) {
         this.speedy = -this.speedy;
-        frameRate = frameRate * 1.5;
 
       }
 
