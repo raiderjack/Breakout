@@ -322,7 +322,7 @@ class JackBall {
   }
   gameCheck() {
     if (counter == 6) {
-      textSize(50);
+      textSize(30);
       fill(10, 211, 30);
       text("YOU WIN! PUSH ENTER TO MOVE TO LEVEL 2", 40, 320);
 
