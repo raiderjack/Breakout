@@ -37,6 +37,7 @@ function setup() {
       brickY = 20;
       background("black");
       createCanvas(800, 700);
+    
 
       // centering bricks
       rectMode(CENTER);
@@ -322,7 +323,7 @@ class JackBall {
   }
   gameCheck() {
     if (counter == 6) {
-      textSize(50);
+      textSize(30);
       fill(10, 211, 30);
       text("YOU WIN! PUSH ENTER TO MOVE TO LEVEL 2", 40, 320);
 
